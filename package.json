@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "dev": "jest",
+    "test": "jest",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
