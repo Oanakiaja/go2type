@@ -65,3 +65,8 @@ type Person = { //  comment
   }
 }
 ```
+
+## TODO
+- alias go > 1.8 `type A = string`
+- operator `*`
+- map type `map[string]string`

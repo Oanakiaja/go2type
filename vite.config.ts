@@ -8,7 +8,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'lib/index.ts'),
       name: 'go2type',
       // the proper extensions will be added
-      fileName: 'gFo2type'
+      fileName: 'go2type'
     },
 }
 })

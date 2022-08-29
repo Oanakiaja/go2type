@@ -1,13 +1,9 @@
-type Pos = {
-  row: number
-  col: number
-}
+import { Pos } from './pos'
 
 export enum TokenOrder {
   // special token
   ILLEGAL,  // error token
   COMMENT,
-  JSONTAG,
 
   literal_begin,
   IDENT,  // main
@@ -20,7 +16,7 @@ export enum TokenOrder {
   keywords_end,
 
   // operator
-  operator_begin,
+  separator_begin,
   LBRACK,
   LBRACE,
   COMMA,
@@ -32,7 +28,7 @@ export enum TokenOrder {
   DEFPOINT,
   SQUOTA,
   DQUOTA,
-  operator_end
+  separator_end
 }
 
 export const TokenEnum = {
@@ -55,7 +51,7 @@ export const TokenEnum = {
 
 
 export const Keywords = (() => {
-  const map = new Map<string,number>()
+  const map = new Map<string, number>()
   for (const num in TokenEnum) {
     map.set(TokenEnum[Number(num) as keyof typeof TokenEnum], Number(num))
   }
@@ -65,7 +61,7 @@ export const Keywords = (() => {
 export class TokenNode {
   tokenType: TokenOrder;
   name: string;
-  start: Pos
+  start: Pos;
   end: Pos
   constructor(tokenType: TokenOrder, name: string, start: Pos, end: Pos) {
     this.tokenType = tokenType
@@ -77,15 +73,13 @@ export class TokenNode {
 
 export class Lexer {
   content: string
-  pos: number
-  row: number
-  col: number
+  cur: number
+  pos: Pos
 
-  constructor(content:string) {
+  constructor(content: string) {
     this.content = content
-    this.pos = 0
-    this.row = 0
-    this.col = 0
+    this.cur = 0
+    this.pos = new Pos()
   }
 
   scan() {
@@ -97,7 +91,7 @@ export class Lexer {
         const token = this.parse_comment()
         token && token_sequences.push(token)
       }
-      if(/[\[\]\{\}\.\,\;\:\`\"\']/.test(this.next())){
+      if (/[\[\]\{\}\.\,\;\:\`\"\']/.test(this.next())) {
         token_sequences.push(this.parse_opt())
       }
       const token = this.parse_word()
@@ -108,27 +102,24 @@ export class Lexer {
   }
 
   next(count: number = 1) {
-    return this.content.substring(this.pos, this.pos + count)
+    return this.content.substring(this.cur, this.cur + count)
   }
 
   get_pos() {
-    return {
-      col: this.col,
-      row: this.row
-    }
+    return new Pos(this.pos.row, this.pos.col)
   }
 
   eof() {
-    return this.pos >= this.content.length
+    return this.cur >= this.content.length
   }
 
   consume_char() {
-    if (this.next() === '\n' || this.next(2)==='\n\r') {
-      this.row++
-      this.col = 0
+    if (this.next() === '\n') {
+      this.pos.next_row()
+    } else {
+      this.pos.next_col()
     }
-    this.col++
-    return this.content[this.pos++]
+    return this.content[this.cur++]
   }
 
   consume_while(rule: RegExp) {
@@ -151,7 +142,7 @@ export class Lexer {
   }
 
   consume_white_space() {
-    this.consume_while(/\s/)
+    this.consume_while(/[\s\r]/)
   }
 
   consume_word() {
@@ -162,10 +153,10 @@ export class Lexer {
   parse_word() {
     const start = this.get_pos()
     const word = this.consume_word()
-    if(word){
+    if (word) {
       const end = this.get_pos()
       const keyword = Keywords.get(word)
-      if (keyword && keyword > TokenOrder.keywords_begin 
+      if (keyword && keyword > TokenOrder.keywords_begin
         && keyword < TokenOrder.keywords_end) {
         return new TokenNode(keyword, word, start, end)
       }
@@ -179,15 +170,14 @@ export class Lexer {
     const opt = this.consume_char()
     const end = this.get_pos()
     const keyword = Keywords.get(opt)
-    if (keyword && keyword > TokenOrder.operator_begin 
-      && keyword < TokenOrder.operator_end) {
+    if (keyword && keyword > TokenOrder.separator_begin
+      && keyword < TokenOrder.separator_end) {
       return new TokenNode(keyword, opt, start, end)
     }
     throw Error(`token: don't know what is "${opt}" in token map`)
   }
-  
+
   parse_comment() {
-    // FIXME: Maybe Problem
     if (this.next(2) === '/*') {
       const start = this.get_pos()
       let comment = this.consume_char()
@@ -210,10 +200,9 @@ export class Lexer {
       while (!this.eof()) {
         comment += this.consume_until(/\n/)
         this.consume_char() // \n
-        if(this.next()==='\r'){
+        if (this.next() === '\r') {
           this.consume_char()
         }
-        // FIXME: Maybe Problem
         const end = this.get_pos()
         return new TokenNode(TokenOrder.COMMENT, comment, start, end)
       }
