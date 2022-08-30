@@ -2,7 +2,7 @@
 import { Loc } from './pos'
 import { TokenNode } from './token'
 
-abstract class Expression {
+class Expression {
   loc: Loc
   constructor(loc?: Loc) {
     this.loc = loc ?? new Loc()

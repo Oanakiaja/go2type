@@ -22,7 +22,7 @@ export class Lexer {
         token && token_sequences.push(token)
       }
       if (/[\[\]\{\}\.\,\;\:\`\"\']/.test(this.next())) {
-        token_sequences.push(this.parse_opt())
+        token_sequences.push(this.parse_separator())
       }
       const token = this.parse_word()
       token && token_sequences.push(token)
@@ -95,16 +95,16 @@ export class Lexer {
     return undefined
   }
 
-  parse_opt() {
+  parse_separator() {
     const start = this.get_pos()
-    const opt = this.consume_char()
+    const separator = this.consume_char()
     const end = this.get_pos()
-    const keyword = Keywords.get(opt)
+    const keyword = Keywords.get(separator)
     if (keyword && keyword > TokenOrder.separator_begin
       && keyword < TokenOrder.separator_end) {
-      return new TokenNode(keyword, opt, start, end)
+      return new TokenNode(keyword, separator, start, end)
     }
-    throw Error(`token: don't know what is "${opt}" in token map`)
+    throw Error(`token: don't know what is "${separator}" in token map`)
   }
 
   parse_comment() {

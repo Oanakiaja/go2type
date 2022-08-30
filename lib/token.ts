@@ -15,7 +15,7 @@ export enum TokenOrder {
   STRUCT,
   keywords_end,
 
-  // operator
+  // separator
   separator_begin,
   LBRACK,
   LBRACE,
@@ -35,7 +35,7 @@ export const TokenEnum = {
   // keywords
   [TokenOrder.TYPE]: 'type',
   [TokenOrder.STRUCT]: 'struct',
-  // operator
+  // separator
   [TokenOrder.LBRACK]: '[',
   [TokenOrder.LBRACE]: '{',
   [TokenOrder.COMMA]: ',',
