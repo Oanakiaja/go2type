@@ -15,3 +15,12 @@ export class Pos {
     this.col++
   }
 }
+
+export class Loc {
+  start: Pos
+  end: Pos
+  constructor(start?: Pos, end?: Pos){
+    this.start = start ?? new Pos();
+    this.end = end ?? new Pos();
+  }
+}
