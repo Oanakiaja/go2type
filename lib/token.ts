@@ -59,12 +59,12 @@ export const Keywords = (() => {
 })()
 
 export class TokenNode {
-  tokenType: TokenOrder;
+  token_type: TokenOrder;
   name: string;
   start: Pos;
   end: Pos
   constructor(tokenType: TokenOrder, name: string, start: Pos, end: Pos) {
-    this.tokenType = tokenType
+    this.token_type = tokenType
     this.name = name
     this.start = start
     this.end = end

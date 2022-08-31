@@ -11,7 +11,7 @@ class Expression {
   // TODO: transpiler 逻辑
 }
 
-export class File extends Expression {
+export class Tree extends Expression {
   decls: GenDecl[]
   comments: Comment[]
   constructor() {
@@ -52,7 +52,7 @@ export class GenDecl extends Expression {
   }
 }
 
-type TypeSpecType = StructType | ArrayType | IdentType
+export type TypeSpecType = StructType | ArrayType | IdentType
 
 export class TypeSpec extends Expression {
   assign: number
@@ -67,13 +67,13 @@ export class TypeSpec extends Expression {
 }
 
 export class StructType extends Expression {
-  fields: FieldList
+  fields: FieldList | null
   in_complete: boolean
   struct: number
-  constructor(fields: FieldList) {
+  constructor() {
     super()
     this.in_complete = false
-    this.fields = fields
+    this.fields = null
     this.struct = 0
   }
 }
@@ -104,22 +104,23 @@ export class IdentType extends Expression {
 export class Field extends Expression {
   names: TokenNode[]
   type?: TypeSpecType
-  tag?: BasicLit
+  tag: BasicLit | null
 
   constructor() {
     super()
     this.names = []
+    this.tag = null
   }
 
   add_name(name: TokenNode) {
     this.names.push(name)
   }
 
-  add_type(type: TypeSpecType) {
+  set_type(type: TypeSpecType) {
     this.type = type
   }
 
-  add_tag(tag: BasicLit) {
+  set_tag(tag: BasicLit | null) {
     this.tag = tag
   }
 }
