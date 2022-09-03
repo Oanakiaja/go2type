@@ -2,15 +2,15 @@
 import { Loc } from './pos'
 import { TokenNode } from './token'
 
-class Expression {
+export class Expression {
   loc: Loc
 
   constructor(loc?: Loc) {
     this.loc = loc ?? new Loc()
   }
 
-  set_loc(loc: Loc){
-    this.loc= loc
+  set_loc(loc: Loc) {
+    this.loc = loc
   }
 }
 
@@ -49,6 +49,7 @@ export class GenDecl extends Expression {
   add_specs(type_spec: TypeSpec) {
     this.specs.push(type_spec)
   }
+
 }
 
 export type TypeSpecType = StructType | ArrayType | IdentType
@@ -61,15 +62,14 @@ export class TypeSpec extends Expression {
     this.name = name
     this.type = type
   }
+
 }
 
 export class StructType extends Expression {
   fields: FieldList | null
-  struct: number
   constructor() {
     super()
     this.fields = null
-    this.struct = 0
   }
 }
 
@@ -147,6 +147,12 @@ export class BasicLit extends Expression {
   }
 
   parse_json_tag() {
-    // TODO: 增加 json_tag 的识别
+    // `json:"value,omitempty"`
+    // `json:"-"`
+    // `json:"value"`
+    const { 1: value, 3: omit } = this.value?.match(
+      /\`json:"([a-zA-Z0-9]*|\-)(,(omitempty))?"\`/
+    ) || { 1: undefined, 3: undefined }
+    return [value, omit ? true : false] as const
   }
 }

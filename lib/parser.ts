@@ -137,7 +137,7 @@ export class Parser {
     }
     this.consume_token() // '}'
     const end = this.pre().end
-    fields.set_loc(new Loc(start,end))
+    fields.set_loc(new Loc(start, end))
     return fields
   }
 

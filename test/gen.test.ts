@@ -1,6 +1,8 @@
 import {
+  Generator,
   Lexer,
-  Parser
+  Parser,
+
 } from '../lib'
 
 test('parser basic', () => {
@@ -19,8 +21,7 @@ type Person struct {
     MiddleSchool,HighSchool,College string
   }
 }`)
-  new Parser(lex.scan()).parse()
   // TODO
-  // console.dir(new Parser(lex.scan()).parse(), { depth: null })
+  console.log(new Generator(new Parser(lex.scan()).parse()).gen())
   expect(true).toBe(true)
 })
