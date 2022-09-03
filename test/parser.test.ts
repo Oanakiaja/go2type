@@ -20,7 +20,6 @@ test('parser basic', () => {
      }
   }
   `)
-  console.log(JSON.stringify(new Parser(lex.scan()).parse()))
   // TODO
   expect(true).toBe(true)
 })
