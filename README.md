@@ -1,4 +1,4 @@
-# go2type [wip]
+# go2type
 
 A typescript transpiler that convert golang's type to typescript's type. Help front-end developer to work faster in daily work.
 My target is to provide a website tool to convert static text written in Golang interface structure to TypeScript type definition.
