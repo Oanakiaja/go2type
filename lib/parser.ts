@@ -1,6 +1,7 @@
 import { TokenNode, TokenOrder } from './token'
 import { goDataType } from './type'
-import { ArrayType, BasicLit, Field, FieldList, GenDecl, IdentType, StructType, Tree, TypeSpec, TypeSpecType } from './ast'
+import { ArrayType, BasicLit, CommentExp, Field, FieldList, GenDecl, IdentType, StructType, Tree, TypeSpec, TypeSpecType } from './ast'
+import { Loc, Pos } from './pos'
 
 /**
  ** Expression -> "type" Decl 
@@ -14,36 +15,36 @@ import { ArrayType, BasicLit, Field, FieldList, GenDecl, IdentType, StructType, 
  ** IdentType -> "int64" | "int" | "string" | "bool" ....
  */
 
-// TODO: loc，comment
-
 export class Parser {
   token_seq: TokenNode[]
+  decl_seq: TokenNode[]
   comment_seq: TokenNode[]
   cur: number
 
   constructor(token_seq: TokenNode[]) {
-    this.token_seq = []
+    this.token_seq = token_seq
+    this.decl_seq = []
     this.comment_seq = []
     this.cur = 0
     for (const token of token_seq) {
       if (token.token_type === TokenOrder.COMMENT) {
         this.comment_seq.push(token)
       } else {
-        this.token_seq.push(token)
+        this.decl_seq.push(token)
       }
     }
   }
 
-  next() {
-    return this.token_seq[this.cur]
+  pre() {
+    return this.decl_seq[this.cur - 1]
   }
 
-  eof() {
-    return this.cur >= this.token_seq.length
+  next() {
+    return this.decl_seq[this.cur]
   }
 
   consume_token() {
-    return this.token_seq[this.cur++]
+    return this.decl_seq[this.cur++]
   }
 
   parse() {
@@ -56,6 +57,9 @@ export class Parser {
     while (this.consume_token()?.token_type === TokenOrder.TYPE) {
       tree.add_decl(this.type_decl())
     }
+    tree.set_comments(this.comment_seq.map(node => new CommentExp(node)))
+    const end = this.decl_seq[this.decl_seq.length - 1].end;
+    tree.set_loc(new Loc(new Pos(1, 1), end));
     return tree
   }
 
@@ -63,7 +67,10 @@ export class Parser {
     // Decl -> Ident TypeSpec
     const decl = new GenDecl("type")
     if (this.next().token_type === TokenOrder.IDENT) {
+      const start = this.pre().start
       decl.add_specs(this.type_spec())
+      const end = this.pre().end
+      decl.set_loc(new Loc(start, end))
       return decl
     }
     throw Error("parser: FiledSpec start is not Ident")
@@ -71,8 +78,12 @@ export class Parser {
 
   type_spec(): TypeSpec {
     // Decl -> Ident TypeSpec
+    const start = this.next().start
     const name = this.consume_token() // Ident
-    return new TypeSpec(name, this.type_spec_type())
+    const type_spec_node = new TypeSpec(name, this.type_spec_type())
+    const end = this.pre().end
+    type_spec_node.set_loc(new Loc(start, end))
+    return type_spec_node
   }
 
   type_spec_type(): TypeSpecType {
@@ -93,9 +104,12 @@ export class Parser {
 
   struct_type(): StructType {
     // StructContent -> { FieldItem
+    const start = this.pre().start
     if (this.consume_token().token_type === TokenOrder.LBRACE) {
       const struct = new StructType()
       struct.fields = this.field_list()
+      const end = this.pre().end
+      struct.set_loc(new Loc(start, end))
       return struct
     }
     throw Error(`parser: struct_type parse error`)
@@ -103,8 +117,10 @@ export class Parser {
 
   field_list(): FieldList {
     // FieldItem -> Ident, FieldItem ｜ Decl Tag FieldItem  | }  
+    const start = this.pre().start
     const fields = new FieldList()
     while (this.next().token_type !== TokenOrder.RBRACE) {
+      const start = this.next().start
       const field = new Field()
       // Name 
       if (!this.is_ident_name(this.next())) {
@@ -115,9 +131,13 @@ export class Parser {
       field.set_type(this.type_spec_type())
       // Tag 
       field.set_tag(this.tag())
+      const end = this.pre().end
+      field.set_loc(new Loc(start, end))
       fields.add_field(field)
     }
     this.consume_token() // '}'
+    const end = this.pre().end
+    fields.set_loc(new Loc(start,end))
     return fields
   }
 
@@ -138,13 +158,16 @@ export class Parser {
   tag(): BasicLit | null {
     if (this.next().token_type === TokenOrder.DEFPOINT) {
       const tag = new BasicLit('String')
-      let value = this.consume_token().name
+      let { name: value, start } = this.consume_token()
       while (this.next().token_type !== TokenOrder.DEFPOINT) { // `
         value += this.consume_token().name
       }
-      value += this.consume_token().name
-      // `json:"name"`      
+      let { name, end } = this.consume_token()
+      value += name
+      // `json:"name"`
+      tag.set_loc(new Loc(start, end))
       tag.add_value(value)
+
       return tag
     }
     return null
@@ -152,9 +175,12 @@ export class Parser {
 
   array_type(): ArrayType {
     // ArrayType-> [] TypeSpec
+    const start = this.pre().start
     const array = new ArrayType()
     if (this.consume_token().token_type === TokenOrder.RBRACK) {
       array.add_elt(this.type_spec_type())
+      const end = this.pre().end
+      array.set_loc(new Loc(start, end))
       return array
     }
     throw Error('parser: ArrayType parse error')

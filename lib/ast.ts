@@ -4,16 +4,19 @@ import { TokenNode } from './token'
 
 class Expression {
   loc: Loc
+
   constructor(loc?: Loc) {
     this.loc = loc ?? new Loc()
   }
-  // TODO: Loc 逻辑
-  // TODO: transpiler 逻辑
+
+  set_loc(loc: Loc){
+    this.loc= loc
+  }
 }
 
 export class Tree extends Expression {
   decls: GenDecl[]
-  comments: Comment[]
+  comments: CommentExp[]
   constructor() {
     super()
     this.decls = []
@@ -22,28 +25,24 @@ export class Tree extends Expression {
   add_decl(decl: GenDecl) {
     this.decls.push(decl)
   }
-  add_comments(comment: Comment) {
-    this.comments.push(comment)
+  set_comments(comment: CommentExp[]) {
+    this.comments = (comment)
   }
 }
 
-export class Comment extends Expression {
+export class CommentExp extends Expression {
   text: string
-  constructor(text: string) {
-    super()
-    this.text = text
+  constructor(token: TokenNode) {
+    super(new Loc(token.start, token.end))
+    this.text = token.name
   }
 }
 
 export class GenDecl extends Expression {
-  l_paren: number
-  right_paren: number
   tok: string
   specs: TypeSpec[]
   constructor(tok: string) {
     super()
-    this.l_paren = 0
-    this.right_paren = 0
     this.tok = tok
     this.specs = []
   }
@@ -55,12 +54,10 @@ export class GenDecl extends Expression {
 export type TypeSpecType = StructType | ArrayType | IdentType
 
 export class TypeSpec extends Expression {
-  assign: number
   name: TokenNode
   type: TypeSpecType
   constructor(name: TokenNode, type: TypeSpecType) {
     super()
-    this.assign = 0
     this.name = name
     this.type = type
   }
@@ -68,11 +65,9 @@ export class TypeSpec extends Expression {
 
 export class StructType extends Expression {
   fields: FieldList | null
-  in_complete: boolean
   struct: number
   constructor() {
     super()
-    this.in_complete = false
     this.fields = null
     this.struct = 0
   }
