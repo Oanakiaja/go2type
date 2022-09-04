@@ -9,6 +9,6 @@ export default defineConfig({
       name: 'go2type',
       // the proper extensions will be added
       fileName: 'go2type'
-    },
-}
+    }
+  }
 })

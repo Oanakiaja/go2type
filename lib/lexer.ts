@@ -1,6 +1,8 @@
 import { Pos } from './pos'
 import { TokenNode, Keywords, TokenOrder } from './token'
 
+const word_reg = /[\w\-]/
+
 export class Lexer {
   content: string
   cur: number
@@ -14,20 +16,24 @@ export class Lexer {
 
   scan() {
     const token_sequences: TokenNode[] = []
-    console.time('tokenlize')
     while (!this.eof()) {
       this.consume_white_space()
       if (this.next() === '/') {
         const token = this.parse_comment()
         token && token_sequences.push(token)
+        continue;
       }
       if (/[\[\]\{\}\.\,\;\:\`\"\']/.test(this.next())) {
         token_sequences.push(this.parse_separator())
+        continue;
       }
-      const token = this.parse_word()
-      token && token_sequences.push(token)
+      if(word_reg.test(this.next())){
+        const token = this.parse_word()
+        token && token_sequences.push(token)
+        continue;
+      }
+      throw Error(`token: don't support ${this.next()}`)
     }
-    console.timeEnd('tokenlize')
     return token_sequences
   }
 
@@ -76,7 +82,7 @@ export class Lexer {
   }
 
   consume_word() {
-    return this.consume_while(/\w/)
+    return this.consume_while(word_reg)
   }
 
 

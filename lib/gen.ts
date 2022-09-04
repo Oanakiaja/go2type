@@ -10,7 +10,6 @@ import {
   TypeSpecType
 } from "./ast";
 import { Pos } from "./pos";
-import { format } from 'prettier'
 
 
 export class Generator {
@@ -25,10 +24,7 @@ export class Generator {
   gen() {
     this.gen_decls()
     this.gen_comments()
-    return format(
-      this.text_lines.filter(line => line !== "").join('\n'),
-      { semi: false, parser: "typescript" }
-    )
+    return this.text_lines.filter(line => line !== "").join('\n')
   }
 
   gen_decls() {

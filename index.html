@@ -1,13 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css">
+  <title>Vite + TS</title>
+</head>
+
+<!--copy from https://codepen.io/antonmedv/pen/PoPoGwg -->
+
+<body>
+  <main class="view">
+    <div class="logo"></div>
+    <h1 class="title">
+      Go2Type Editor
+    </h1>
+    <div class="flex">
+      <div class="window">
+        <div class="window-header">
+          <div class="action-buttons"></div>
+          <div class="controls">
+            <div>language: go</div>
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="go-editor language-go" data-gramm="false"></div>
+        </div>
+      </div>
+      <div class="window" style="margin-left: 10px;">
+        <div class="window-header">
+          <div class="action-buttons"></div>
+          <div class="controls">
+            <div>language: ts </div>
+          </div>
+        </div>
+        <div class="window-body">
+          <div class="ts-editor language-ts" data-gramm="false"></div>
+        </div>
+      </div>
+    </div>
+    <div class="features">
+      <div class="error"></div>
+    </div>
+    <h3>GitHub: <a href="https://github.com/Oanakiaja/go2type">https://github.com/Oanakiaja/go2type</a></h3>
+    <div class="features">
+      <h2>Features</h2>
+      <ul>
+        <li /> use CodeJar Editor
+        <li /> transpile from go's tpye to typescript   
+      </ul>
+    </div>
+    <div class="features">
+      <h2>TODO</h2>
+      <ul>
+        <li /> operator <code>*</code>
+        <li /> type alias after go1.8 : <code>type Age = int64</code>
+        <li /> map type:   <code>map[stirng]string</code>
+      </ul>
+    </div>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+</body>
+
 </html>
