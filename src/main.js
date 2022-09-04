@@ -92,8 +92,7 @@ const transpilerJar = async (code) => {
 const ts_jar = create_editor('ts')
 const go_jar = create_editor('go')
 create_style()
-go_jar.updateCode(`
-/* test 
+go_jar.updateCode(`/* test 
 * 123
 */
 type Height int // comment

@@ -1,6 +1,6 @@
 # go2type
 
-![page snapshot](./show.png)
+![page snapshot](./show.jpg)
 
 [go2type.vercel.app](https://go2type.vercel.app/)
 ([backup site](https://go2type-oanakiaja.vercel.app/))
