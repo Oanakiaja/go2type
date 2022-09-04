@@ -3,6 +3,7 @@
 ![page snapshot](./show.png)
 
 [go2type.vercel.app](https://go2type.vercel.app/)
+([backup site](https://go2type-oanakiaja.vercel.app/))
 
 A typescript transpiler that convert golang's type to typescript's type. Help front-end developer to work faster in daily work.
 My target is to provide a website tool to convert static text written in Golang interface structure to TypeScript type definition.
