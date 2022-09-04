@@ -1,5 +1,9 @@
 # go2type
 
+![page snapshot](./show.png)
+
+[go2type.vercel.app](https://go2type.vercel.app/)
+
 A typescript transpiler that convert golang's type to typescript's type. Help front-end developer to work faster in daily work.
 My target is to provide a website tool to convert static text written in Golang interface structure to TypeScript type definition.
 So the lex & parser can only parse the code about type definition, which is be designed following.
