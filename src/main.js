@@ -102,7 +102,7 @@ type Person struct {
   Height Height  // comment
   Birthday uint8  // comment
   Parents []Person 
-  School struct {
+  School map[string]struct {
     MiddleSchool string
     HighSchool string
     College string 

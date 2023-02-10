@@ -16,6 +16,8 @@ We support common type definition in interface like
 * JSON Tag
 * Inline Structure
 * Comment
+* map
+* `*` operator
 
 About data type, communication between frontend and backend, we just have basic type, compound structure type, and array type.
 
@@ -73,5 +75,4 @@ type Person = { //  comment
 
 ## TODO
 - alias go > 1.8 `type A = string`
-- map type `map[string]string`
 - cascade type `TypeA.TypeB`

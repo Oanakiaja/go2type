@@ -52,7 +52,7 @@ export class GenDecl extends Expression {
 
 }
 
-export type TypeSpecType = StructType | ArrayType | IdentType
+export type TypeSpecType = StructType | ArrayType | IdentType | MapType
 
 export class TypeSpec extends Expression {
   name: TokenNode
@@ -130,6 +130,22 @@ export class ArrayType extends Expression {
   }
 
   add_elt(elt: TypeSpecType) {
+    this.elt = elt
+  }
+}
+
+export class MapType extends Expression {
+  elt?: TypeSpecType
+  key?: IdentType
+  constructor() {
+    super()
+  }
+
+  set_key(key: IdentType) {
+    this.key = key
+  }
+
+  set_elt(elt: TypeSpecType) {
     this.elt = elt
   }
 }

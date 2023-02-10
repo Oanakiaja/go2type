@@ -27,7 +27,7 @@ export class Lexer {
         token_sequences.push(this.parse_separator())
         continue;
       }
-      // 比较hack，其实不太合适，但在此场景下够了，js/ts没有 * 
+      // 比较hack，其实不太合适，应该在parser处处理，但在此场景下够了，js/ts没有 * 
       this.consume_star()
       if (word_reg.test(this.next())) {
         const token = this.parse_word()

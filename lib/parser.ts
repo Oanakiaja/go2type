@@ -1,17 +1,18 @@
 import { TokenNode, TokenOrder } from './token'
 import { goDataType } from './type'
-import { ArrayType, BasicLit, CommentExp, Field, FieldList, GenDecl, IdentType, StructType, Tree, TypeSpec, TypeSpecType } from './ast'
+import { ArrayType, BasicLit, CommentExp, Field, FieldList, GenDecl, IdentType, MapType, StructType, Tree, TypeSpec, TypeSpecType } from './ast'
 import { Loc, Pos } from './pos'
 
 /**
  ** Expression -> "type" Decl 
  ** Decl -> Ident TypeSpec 
- ** TypeSpec -> StructType  | ArrayType | IdentType 
+ ** TypeSpec -> StructType  | ArrayType | IdentType | MapType
  ** StructType -> "struct"  StructContent
  ** StructContent -> { FieldItem
  ** FieldItem -> Decl Tag FieldItem | Ident, FieldItem | }  
  ** Tag -> `TagName:"TagValue"` | ε 
  ** ArrayType-> [] TypeSpec
+ ** MapType -> map[IdentType] TypeSpec
  ** IdentType -> "int64" | "int" | "string" | "bool" ....
  */
 
@@ -92,6 +93,9 @@ export class Parser {
     if (left_token.token_type === TokenOrder.STRUCT) {
       //  StructType -> "struct"  StructContent
       return this.struct_type()
+    }
+    if (left_token.token_type === TokenOrder.MAP) {
+      return this.map_type()
     }
     if (left_token.token_type === TokenOrder.LBRACK) {
       return this.array_type()
@@ -186,18 +190,20 @@ export class Parser {
     throw Error('parser: ArrayType parse error')
   }
 
-  // is_comment(token: TokenNode) {
-  //   return token.token_type === TokenOrder.COMMENT
-  // }
-
-  // is_ident_type(token: TokenNode) {
-  //   if (token.token_type === TokenOrder.IDENT) {
-  //     if (goDataType.includes(token.name as typeof goDataType[0])) {
-  //       return true
-  //     }
-  //   }
-  //   return false
-  // }
+  map_type(): MapType {
+    // MapType -> map[IdentType] TypeSpec
+    const start = this.pre().start
+    const map = new MapType()
+    if (this.consume_token().token_type === TokenOrder.LBRACK) {
+      map.set_key(new IdentType(this.consume_token()))
+      this.consume_token()
+      map.set_elt(this.type_spec_type())
+      const end = this.pre().end
+      map.set_loc(new Loc(start, end))
+      return map
+    }
+    throw Error('parser: MapType parse error')
+  }
 
   is_ident_name(token: TokenNode) {
     if (token.token_type === TokenOrder.IDENT) {

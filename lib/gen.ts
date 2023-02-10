@@ -7,7 +7,8 @@ import {
   ArrayType,
   IdentType,
   Field,
-  TypeSpecType
+  TypeSpecType,
+  MapType
 } from "./ast";
 import { Pos } from "./pos";
 
@@ -51,6 +52,10 @@ export class Generator {
       this.gen_array_type(type)
       return
     }
+    if (type instanceof MapType) {
+      this.gen_map_type(type)
+      return
+    }
     if (type instanceof IdentType) {
       this.add_text(
         type.loc.start,
@@ -65,6 +70,12 @@ export class Generator {
   gen_array_type(array_type: ArrayType) {
     this.gen_type_spec_type(array_type.elt)
     this.add_text(array_type.loc.end, '[]', "")
+  }
+
+  gen_map_type(map_type: MapType) {
+    this.add_text(map_type.loc.start, `Record<${map_type.key?.name},`, "")
+    this.gen_type_spec_type(map_type.elt)
+    this.add_text(map_type.loc.end, '>', '')
   }
 
   gen_struct_type(struct_type: StructType) {
@@ -119,6 +130,5 @@ export class Generator {
   add_text(pos: Pos, text: string, tab: string = " ") {
     this.text_lines[pos.row - 1] += text + tab
   }
-
 
 }
