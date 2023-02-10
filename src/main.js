@@ -97,7 +97,7 @@ go_jar.updateCode(`/* test
 */
 type Height int // comment
 type Person struct {
-  Name string \`json:"name"\` //  comment
+  Name *string \`json:"name"\` //  comment
   Age uint8 // comment
   Height Height  // comment
   Birthday uint8  // comment

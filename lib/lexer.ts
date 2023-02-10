@@ -27,7 +27,9 @@ export class Lexer {
         token_sequences.push(this.parse_separator())
         continue;
       }
-      if(word_reg.test(this.next())){
+      // 比较hack，其实不太合适，但在此场景下够了，js/ts没有 * 
+      this.consume_star()
+      if (word_reg.test(this.next())) {
         const token = this.parse_word()
         token && token_sequences.push(token)
         continue;
@@ -66,6 +68,10 @@ export class Lexer {
     return res
   }
 
+  consume_star() {
+    this.consume_while(/\*/)
+  }
+
   consume_until(end_with: RegExp) {
     let res = ""
     while (!this.eof() && !end_with.test(this.next())) {
@@ -84,7 +90,6 @@ export class Lexer {
   consume_word() {
     return this.consume_while(word_reg)
   }
-
 
   parse_word() {
     const start = this.get_pos()

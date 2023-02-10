@@ -5,7 +5,7 @@ import {
 
 test('parser basic', () => {
   const lex = new Lexer(
-`/* test 
+    `/* test 
 * 123
 */
 type Height int // comment

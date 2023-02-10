@@ -28,7 +28,8 @@ export enum TokenOrder {
   DEFPOINT,
   SQUOTA,
   DQUOTA,
-  separator_end
+  STAR,
+  separator_end,
 }
 
 export const TokenEnum = {
@@ -46,7 +47,8 @@ export const TokenEnum = {
   [TokenOrder.COLON]: ':',
   [TokenOrder.DEFPOINT]: '`',
   [TokenOrder.SQUOTA]: "'",
-  [TokenOrder.DQUOTA]: '"'
+  [TokenOrder.DQUOTA]: '"',
+  [TokenOrder.STAR]: '*'
 } as const
 
 
