@@ -167,7 +167,7 @@ export class BasicLit extends Expression {
     // `json:"-"`
     // `json:"value"`
     const { 1: value, 3: omit } = this.value?.match(
-      /\`json:"([a-zA-Z0-9]*|\-)(,(omitempty))?"\`/
+      /json:"([a-zA-Z0-9_]*|\-)(,(omitempty)?)?"/
     ) || { 1: undefined, 3: undefined }
     return [value, omit ? true : false] as const
   }

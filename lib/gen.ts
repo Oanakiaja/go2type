@@ -59,12 +59,16 @@ export class Generator {
     if (type instanceof IdentType) {
       this.add_text(
         type.loc.start,
-        typeMap.get(type.name as goIdentifierType) ?? type.name,
+        this.gen_ident_type(type),
         ""
       )
       return
     }
     throw Error('gen: dont have type')
+  }
+
+  gen_ident_type(ident_type: IdentType) {
+    return typeMap.get(ident_type.name as goIdentifierType) ?? ident_type.name
   }
 
   gen_array_type(array_type: ArrayType) {
@@ -73,7 +77,7 @@ export class Generator {
   }
 
   gen_map_type(map_type: MapType) {
-    this.add_text(map_type.loc.start, `Record<${map_type.key?.name},`, "")
+    this.add_text(map_type.loc.start, `Record<${this.gen_ident_type(map_type.key!)},`, "")
     this.gen_type_spec_type(map_type.elt)
     this.add_text(map_type.loc.end, '>', '')
   }
