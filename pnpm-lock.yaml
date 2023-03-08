@@ -1,19 +1,15 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@hope-ui/solid': ^0.6.7
-  '@stitches/core': ^1.2.8
   '@types/jest': ^28.1.8
   '@types/node': ^18.7.13
   '@types/prettier': ^2.7.0
-  '@types/prismjs': ^1.26.0
   autoprefixer: ^10.4.13
   jest: ^28.0.0
   monaco-editor: 0.36.1
   postcss: ^8.4.21
   prettier: ^2.8.4
   solid-js: ^1.6.11
-  solid-transition-group: ^0.0.13
   tailwindcss: ^3.2.7
   ts-jest: ^28.0.8
   ts-node: ^10.9.1
@@ -22,18 +18,14 @@ specifiers:
   vite-plugin-solid: ^2.6.1
 
 dependencies:
-  '@hope-ui/solid': registry.npmjs.org/@hope-ui/solid/0.6.7_tpawkszxxy4bgl6v3sggaqe6vi
-  '@stitches/core': registry.npmjs.org/@stitches/core/1.2.8
   monaco-editor: registry.npmjs.org/monaco-editor/0.36.1
   prettier: registry.npmjs.org/prettier/2.8.4
   solid-js: registry.npmjs.org/solid-js/1.6.11
-  solid-transition-group: registry.npmjs.org/solid-transition-group/0.0.13_solid-js@1.6.11
 
 devDependencies:
   '@types/jest': 28.1.8
   '@types/node': 18.7.13
   '@types/prettier': registry.npmjs.org/@types/prettier/2.7.0
-  '@types/prismjs': registry.npmjs.org/@types/prismjs/1.26.0
   autoprefixer: registry.npmjs.org/autoprefixer/10.4.13_postcss@8.4.21
   jest: registry.npmjs.org/jest/28.1.3_vqz5d3y22yhywvm6xfyh7j5jna
   postcss: registry.npmjs.org/postcss/8.4.21
@@ -1418,40 +1410,6 @@ packages:
     dev: true
     optional: true
 
-  registry.npmjs.org/@floating-ui/core/0.6.2:
-    resolution: {integrity: sha512-jktYRmZwmau63adUG3GKOAVCofBXkk55S/zQ94XOorAHhwqFIOFAy1rSp2N0Wp6/tGbe9V3u/ExlGZypyY17rg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@floating-ui/core/-/core-0.6.2.tgz}
-    name: '@floating-ui/core'
-    version: 0.6.2
-    dev: false
-
-  registry.npmjs.org/@floating-ui/dom/0.4.4:
-    resolution: {integrity: sha512-0Ulu3B/dqQplUUSqnTx0foSrlYuMN+GTtlJWvNJwt6Fr7/PqmlR/Y08o6/+bxDWr6p3roBJRaQ51MDZsNmEhhw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@floating-ui/dom/-/dom-0.4.4.tgz}
-    name: '@floating-ui/dom'
-    version: 0.4.4
-    dependencies:
-      '@floating-ui/core': registry.npmjs.org/@floating-ui/core/0.6.2
-    dev: false
-
-  registry.npmjs.org/@hope-ui/solid/0.6.7_tpawkszxxy4bgl6v3sggaqe6vi:
-    resolution: {integrity: sha512-7zGGy4QbGUC7QhwRnNH8HO0MZFg4jFISlC2cnAMBfFBy272uqQN3PYdTjiIbnpR/4JilUfxCWpFQY+4qslqcIw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@hope-ui/solid/-/solid-0.6.7.tgz}
-    id: registry.npmjs.org/@hope-ui/solid/0.6.7
-    name: '@hope-ui/solid'
-    version: 0.6.7
-    peerDependencies:
-      '@stitches/core': ^1.2.8
-      solid-js: ^1.4.0
-      solid-transition-group: ^0.0.10
-    dependencies:
-      '@floating-ui/dom': registry.npmjs.org/@floating-ui/dom/0.4.4
-      '@stitches/core': registry.npmjs.org/@stitches/core/1.2.8
-      csstype: registry.npmjs.org/csstype/3.0.11
-      focus-trap: registry.npmjs.org/focus-trap/6.7.3
-      lodash.merge: registry.npmjs.org/lodash.merge/4.6.2
-      scroll-lock: registry.npmjs.org/scroll-lock/2.1.5
-      solid-js: registry.npmjs.org/solid-js/1.6.11
-      solid-transition-group: registry.npmjs.org/solid-transition-group/0.0.13_solid-js@1.6.11
-    dev: false
-
   registry.npmjs.org/@istanbuljs/load-nyc-config/1.1.0:
     resolution: {integrity: sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz}
     name: '@istanbuljs/load-nyc-config'
@@ -1823,12 +1781,6 @@ packages:
       '@sinonjs/commons': registry.npmjs.org/@sinonjs/commons/1.8.3
     dev: true
 
-  registry.npmjs.org/@stitches/core/1.2.8:
-    resolution: {integrity: sha512-Gfkvwk9o9kE9r9XNBmJRfV8zONvXThnm1tcuojL04Uy5uRyqg93DC83lDebl0rocZCfKSjUv+fWYtMQmEDJldg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@stitches/core/-/core-1.2.8.tgz}
-    name: '@stitches/core'
-    version: 1.2.8
-    dev: false
-
   registry.npmjs.org/@types/babel__core/7.1.19:
     resolution: {integrity: sha512-WEOTgRsbYkvA/KCsDwVEGkd7WAr1e3g31VHQ8zy5gul/V1qKullU/BU5I68X5v7V3GnB9eotmom4v5a5gjxorw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/babel__core/-/babel__core-7.1.19.tgz}
     name: '@types/babel__core'
@@ -1918,12 +1870,6 @@ packages:
     resolution: {integrity: sha512-RI1L7N4JnW5gQw2spvL7Sllfuf1SaHdrZpCHiBlCXjIlufi1SMNnbu2teze3/QE67Fg2tBlH7W+mi4hVNk4p0A==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/prettier/-/prettier-2.7.0.tgz}
     name: '@types/prettier'
     version: 2.7.0
-    dev: true
-
-  registry.npmjs.org/@types/prismjs/1.26.0:
-    resolution: {integrity: sha512-ZTaqn/qSqUuAq1YwvOFQfVW1AR/oQJlLSZVustdjwI+GZ8kr0MSHBj0tsXPW1EqHubx50gtBEjbPGsdZwQwCjQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/prismjs/-/prismjs-1.26.0.tgz}
-    name: '@types/prismjs'
-    version: 1.26.0
     dev: true
 
   registry.npmjs.org/@types/stack-utils/2.0.1:
@@ -2402,12 +2348,6 @@ packages:
     hasBin: true
     dev: true
 
-  registry.npmjs.org/csstype/3.0.11:
-    resolution: {integrity: sha512-sa6P2wJ+CAbgyy4KFssIb/JNMLxFvKF1pCYCSXS8ZMuqZnMsrxqI2E5sPyoTpxoPU/gVZMzr2zjOfg8GIZOMsw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/csstype/-/csstype-3.0.11.tgz}
-    name: csstype
-    version: 3.0.11
-    dev: false
-
   registry.npmjs.org/csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/csstype/-/csstype-3.1.1.tgz}
     name: csstype
@@ -2850,14 +2790,6 @@ packages:
       locate-path: registry.npmjs.org/locate-path/5.0.0
       path-exists: registry.npmjs.org/path-exists/4.0.0
     dev: true
-
-  registry.npmjs.org/focus-trap/6.7.3:
-    resolution: {integrity: sha512-8xCEKndV4KrseGhFKKKmczVA14yx1/hnmFICPOjcFjToxCJYj/NHH43tPc3YE/PLnLRNZoFug0EcWkGQde/miQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/focus-trap/-/focus-trap-6.7.3.tgz}
-    name: focus-trap
-    version: 6.7.3
-    dependencies:
-      tabbable: registry.npmjs.org/tabbable/5.3.3
-    dev: false
 
   registry.npmjs.org/fraction.js/4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/fraction.js/-/fraction.js-4.2.0.tgz}
@@ -3715,12 +3647,6 @@ packages:
       p-locate: registry.npmjs.org/p-locate/4.1.0
     dev: true
 
-  registry.npmjs.org/lodash.merge/4.6.2:
-    resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz}
-    name: lodash.merge
-    version: 4.6.2
-    dev: false
-
   registry.npmjs.org/lru-cache/5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/lru-cache/-/lru-cache-5.1.1.tgz}
     name: lru-cache
@@ -4228,12 +4154,6 @@ packages:
     version: 5.1.2
     dev: true
 
-  registry.npmjs.org/scroll-lock/2.1.5:
-    resolution: {integrity: sha512-GN8Lp0AzXbkrPFUUNkMUruiiv019UvarNKE/SnXi+AxZRjMnDc2R22VB9RcUtL4P/uub04cKibmpHKIKTyWwYQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/scroll-lock/-/scroll-lock-2.1.5.tgz}
-    name: scroll-lock
-    version: 2.1.5
-    dev: false
-
   registry.npmjs.org/semver/6.3.0:
     resolution: {integrity: sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/semver/-/semver-6.3.0.tgz}
     name: semver
@@ -4306,17 +4226,6 @@ packages:
       '@babel/types': registry.npmjs.org/@babel/types/7.21.2
       solid-js: registry.npmjs.org/solid-js/1.6.11
     dev: true
-
-  registry.npmjs.org/solid-transition-group/0.0.13_solid-js@1.6.11:
-    resolution: {integrity: sha512-VA1V0ip4dsNOQJ/dCluCiAPBUuHspYFm4WYG91jpNmcP4rC4DY1S1EGds44JjiUAP7qEoEZdMhPaiS6lqTF7AA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/solid-transition-group/-/solid-transition-group-0.0.13.tgz}
-    id: registry.npmjs.org/solid-transition-group/0.0.13
-    name: solid-transition-group
-    version: 0.0.13
-    peerDependencies:
-      solid-js: ^1.5.0
-    dependencies:
-      solid-js: registry.npmjs.org/solid-js/1.6.11
-    dev: false
 
   registry.npmjs.org/source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/source-map-js/-/source-map-js-1.0.2.tgz}
@@ -4450,12 +4359,6 @@ packages:
     version: 1.0.0
     engines: {node: '>= 0.4'}
     dev: true
-
-  registry.npmjs.org/tabbable/5.3.3:
-    resolution: {integrity: sha512-QD9qKY3StfbZqWOPLp0++pOrAVb/HbUi5xCc8cUo4XjP19808oaMiDzn0leBY5mCespIBM0CIZePzZjgzR83kA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/tabbable/-/tabbable-5.3.3.tgz}
-    name: tabbable
-    version: 5.3.3
-    dev: false
 
   registry.npmjs.org/tailwindcss/3.2.7_aesdjsunmf4wiehhujt67my7tu:
     resolution: {integrity: sha512-B6DLqJzc21x7wntlH/GsZwEXTBttVSl1FtCzC8WP4oBc/NKef7kaax5jeihkkCEWc831/5NDJ9gRNDK6NEioQQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.2.7.tgz}

@@ -5,14 +5,7 @@ import {
 
 import { getGo2TypeContent, InputSource } from './tools/go2type'
 import Header from './components/Header'
-import { notificationService } from '@hope-ui/solid'
 
-const showNotification = () => {
-  notificationService.show({
-    title: "Copy Successfully",
-    description: `awesome! 😍`,
-  })
-}
 
 const App = () => {
 
@@ -24,7 +17,10 @@ const App = () => {
     goE.onDidChangeModelContent(() => {
       const result = getGo2TypeContent(goE.getValue())
       if (result.error) {
-        typescriptE.setValue(`// ${result.error}`)
+        typescriptE.setValue(
+`/**
+*  ${result.error}
+*/`)
       } else {
         typescriptE.setValue(result?.code ?? '')
       }
@@ -40,23 +36,12 @@ const App = () => {
       {
         value: defualt,
         language: lang,
-        theme: 'vs',
+        theme: 'vs-dark',
         automaticLayout: true,
       });
-
-    if (!editor.getModel()) return
-
-    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
-      const value = editor.getValue()
-      const type = "text/plain";
-      const blob = new Blob([value], { type });
-      const data = [new ClipboardItem({ [type]: blob })];
-      navigator.clipboard
-        .write(data)
-        .then(
-          () => showNotification()
-        );
-    })
+ 
+    // make "Save As" stop working 
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function() {})
 
     return editor
   }
