@@ -7,17 +7,17 @@ export const InputSource = `/**
 * This is a interface transpiler
 */
 type Height int // comment
-type Person struct {
-  Name *string \`json:"name"\` //  comment
-  Age uint8 \`json: "age"\`  // comment
-  Height Height  // comment
-  Birthday uint8  // comment
-  Parents []Person 
-  School map[int64]struct {
-    MiddleSchool string
-    HighSchool string
-    College string 
-  }
+type Person struct { 
+  Name *string \`json:"name"\` // 姓名
+  Age uint8 \`json: "age"\`  
+  Height Height \`json:"height"\`  
+  Birthday uint8 \`json:"birthday, omitempty"\` 
+  Parents []Person \`json:"parents, omitempty"\`
+  School map[int64]struct { 
+    MiddleSchool string  \`json: "middle_school, omitempty"\`
+    HighSchool string  \`json: "high_school, omitempty"\`
+    College string  \`json: "college, omitempty"\`
+  } \`json: "school, omitempty"\`
 }`;
 
 export const getGo2TypeContent = (source: string) => {

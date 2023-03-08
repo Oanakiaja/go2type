@@ -13,7 +13,7 @@ So the lex & parser can only parse the code about type definition, which is be d
 Don't support anonymous type, which is useless in interface definition.
 We support common type definition in interface like 
 * Single Type
-* JSON Tag
+* JSON Tag, (rename, omitempty)
 * Inline Structure
 * Comment
 * map
@@ -37,27 +37,23 @@ About data type, communication between frontend and backend, we just have basic 
 This is a golang type definition.
 
 ```go
-/**
- * Hello !
- * This is a interface transpiler
- */
-type Height = number; // comment
-type Person = {
-  name: string; //  comment
-  age: number; // comment
-  Height: Height; // comment
-  Birthday: number; // comment
-  Parents: Person[];
-  School: Record<
-    number,
-    {
-      MiddleSchool: string;
-      HighSchool: string;
-      College: string;
-    }
-  >;
-};
-
+/** 
+* Hello !
+* This is a interface transpiler
+*/
+type Height int // comment
+type Person struct { 
+  Name *string `json:"name"` // 姓名
+  Age uint8 `json: "age"`  
+  Height Height `json:"height"`  
+  Birthday uint8 `json:"birthday, omitempty"` 
+  Parents []Person `json:"parents, omitempty"`
+  School map[int64]struct { 
+    MiddleSchool string  `json: "middle_school, omitempty"`
+    HighSchool string  `json: "high_school, omitempty"`
+    College string  `json: "college, omitempty"`
+  } `json: "school, omitempty"`
+}
 ```
 We can convert it to TypeScript definition.
 ```TypeScript
@@ -67,17 +63,17 @@ We can convert it to TypeScript definition.
  */
 type Height = number; // comment
 type Person = {
-  name: string; //  comment
-  age: number; // comment
-  Height: Height; // comment
-  Birthday: number; // comment
-  Parents: Person[];
-  School: Record<
+  name: string; // 姓名
+  age: number;
+  height: Height;
+  birthday?: number;
+  parents?: Person[];
+  school?: Record<
     number,
     {
-      MiddleSchool: string;
-      HighSchool: string;
-      College: string;
+      middle_school?: string;
+      high_school?: string;
+      college?: string;
     }
   >;
 };
