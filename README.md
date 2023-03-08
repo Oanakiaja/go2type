@@ -1,6 +1,6 @@
 # go2type
 
-![page snapshot](./show.jpg)
+![page snapshot](./show.png)
 
 [go2type.vercel.app](https://go2type.vercel.app/)
 ([backup site](https://go2type-oanakiaja.vercel.app/))
@@ -28,51 +28,62 @@ About data type, communication between frontend and backend, we just have basic 
 | String | string | string |
 | Array | Array<T> \| T[] | []T |
 | Structure| Object | Struct {} |
-| Function | - | - |
-| Pointer | - | - |
-| Channel | - | - |
-| Slice | - | - |
-| Interface | - | - |
-| Map | - | - |
+| Map | Record<K,V> | Map[K]V |
+
+
 
 
 ### Example 
 This is a golang type definition.
 
 ```go
-// comment 
-type Height int // comment
-type Person struct {
-   Name string  //  comment
-   Age uint8 // comment
-   Height Height  // comment
-   Birthday uint8 `json:"birthday"` 
-   Parents []Person
-   School struct {
-     MiddleSchool string
-     HighSchool string
-     College string
-   }
-}
+/**
+ * Hello !
+ * This is a interface transpiler
+ */
+type Height = number; // comment
+type Person = {
+  name: string; //  comment
+  age: number; // comment
+  Height: Height; // comment
+  Birthday: number; // comment
+  Parents: Person[];
+  School: Record<
+    number,
+    {
+      MiddleSchool: string;
+      HighSchool: string;
+      College: string;
+    }
+  >;
+};
+
 ```
 We can convert it to TypeScript definition.
 ```TypeScript
-// comment 
-type Height = number // comment
-type Person = { //  comment
-  Name: string // comment
-  Age: number // comment
-  Height: Height  // comment
-  birthday: number
-  Parents: Person[]
-  School: {
-    MiddleSchool: string
-    HighSchool: string
-    College: string
-  }
-}
+/**
+ * Hello !
+ * This is a interface transpiler
+ */
+type Height = number; // comment
+type Person = {
+  name: string; //  comment
+  age: number; // comment
+  Height: Height; // comment
+  Birthday: number; // comment
+  Parents: Person[];
+  School: Record<
+    number,
+    {
+      MiddleSchool: string;
+      HighSchool: string;
+      College: string;
+    }
+  >;
+};
 ```
 
 ## TODO
 - alias go > 1.8 `type A = string`
 - cascade type `TypeA.TypeB`
+- combination

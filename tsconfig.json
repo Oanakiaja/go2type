@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
     "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
     "moduleResolution": "Node",
     "strict": true,
     "sourceMap": true,
@@ -19,5 +24,12 @@
   "ts-node": {
     "esm": true
   },
-  "include": ["lib","src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "test"]
+  "include": [
+    "lib",
+    "src/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.js",
+    "test",
+    "src/main.tsx"
+, "src/Github.tsx"  ]
 }
