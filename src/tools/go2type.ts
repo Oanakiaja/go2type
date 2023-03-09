@@ -20,12 +20,13 @@ type Person struct {
   } \`json: "school, omitempty"\`
 }`;
 
-export const getGo2TypeContent = (source: string) => {
+export const getGo2TypeContent = (source: string, prettierConfig?: Omit<prettier.Options,'parser'|'plugins'>) => {
   try {
     const parse_code = new Go2Type(source).transpiler();
     const format_code = prettier.format(parse_code, {
       parser: "typescript",
       plugins: [parserTypescript],
+      ...(prettierConfig ?? {}),
     });
     return { code: format_code, error: null };
   } catch (e) {

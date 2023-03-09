@@ -1,21 +1,27 @@
 import * as monaco from 'monaco-editor'
 import {
-  onMount
+  onMount,
 } from "solid-js";
 
 import { getGo2TypeContent, InputSource } from './tools/go2type'
 import Header from './components/Header'
 
+const DefaultPritterConfig = {
+  printWidth: 80, 
+  tabWidth: 2, 
+  useTabs: false,
+  semi: false,
+  singleQuote: true, //使用单引号
+}
 
-const App = () => {
-
+const App = () => {  
   onMount(async () => {
-    const goE = createMonacoEditor('go', InputSource)
-    const typescriptE = createMonacoEditor('typescript', getGo2TypeContent(InputSource)?.code ?? "")
+    const goE = createMonacoEditor('go', "")
+    const typescriptE = createMonacoEditor('typescript',  "")
     if (!goE || !typescriptE) return
 
     goE.onDidChangeModelContent(() => {
-      const result = getGo2TypeContent(goE.getValue())
+      const result = getGo2TypeContent(goE.getValue(), DefaultPritterConfig)
       if (result.error) {
         typescriptE.setValue(
 `/**
@@ -25,6 +31,8 @@ const App = () => {
         typescriptE.setValue(result?.code ?? '')
       }
     })
+
+    goE.setValue(InputSource)
   });
 
   const createMonacoEditor = (lang: 'go' | 'typescript', defualt: string) => {
@@ -42,7 +50,6 @@ const App = () => {
  
     // make "Save As" stop working 
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, function() {})
-
     return editor
   }
 

@@ -59,8 +59,10 @@ export class Parser {
       tree.add_decl(this.type_decl())
     }
     tree.set_comments(this.comment_seq.map(node => new CommentExp(node)))
-    const end = this.decl_seq[this.decl_seq.length - 1].end;
-    tree.set_loc(new Loc(new Pos(1, 1), end));
+    const end = this.decl_seq?.[this.decl_seq.length - 1]?.end;
+    if(end){
+      tree.set_loc(new Loc(new Pos(1, 1), end));
+    }
     return tree
   }
 
