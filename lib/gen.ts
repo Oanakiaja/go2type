@@ -15,17 +15,18 @@ import { Pos } from "./pos";
 
 export class Generator {
   ast: Tree
-  text_lines: string[]
+  text_lines: Map<number, string> // row -> string
 
   constructor(ast: Tree) {
     this.ast = ast
-    this.text_lines = new Array(ast.loc.end.row).fill("")
+    this.text_lines = new Map() 
   }
 
   gen() {
     this.gen_decls()
     this.gen_comments()
-    return this.text_lines.filter(line => line !== "").join('\n')
+
+    return [...this.text_lines.entries()].sort((a,b)=>a[0]-b[0]).map(v=>v[1]).join('\n')
   }
 
   gen_decls() {
@@ -132,7 +133,8 @@ export class Generator {
   }
 
   add_text(pos: Pos, text: string, tab: string = " ") {
-    this.text_lines[pos.row - 1] += text + tab
+    const row_line = this.text_lines.get(pos.row-1) ?? "";
+    this.text_lines.set(pos.row-1, row_line + text + tab)
   }
 
 }

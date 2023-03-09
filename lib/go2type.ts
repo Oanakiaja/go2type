@@ -10,7 +10,9 @@ export class Go2Type {
   }
 
   transpiler() {
-    const lex = new Lexer(this.content)
-    return new Generator(new Parser(lex.scan()).parse()).gen()
+    const tokens = new Lexer(this.content).scan()
+    const ast = new Parser(tokens).parse()
+    const code = new Generator(ast).gen()
+    return code
   }
 }

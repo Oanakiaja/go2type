@@ -34,7 +34,6 @@ export class Lexer {
         token && token_sequences.push(token)
         continue;
       }
-      throw Error(`token: don't support ${this.next()}`)
     }
     return token_sequences
   }
@@ -77,14 +76,11 @@ export class Lexer {
     while (!this.eof() && !end_with.test(this.next())) {
       res += this.consume_char()
     }
-    if (this.eof()) {
-      throw Error(`token: consume_until don't end ${res}`)
-    }
     return res
   }
 
   consume_white_space() {
-    this.consume_while(/[\s\r]/)
+    this.consume_while(/[\s\n\r]/)
   }
 
   consume_word() {
